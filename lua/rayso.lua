@@ -117,11 +117,10 @@ local function log(url, code, lang)
     if file_ then
       f:close()
     else
-      print('error', success)
       return
     end
   else
-    print("doesn't exist, ccreating")
+    print("doesn't exist, creating")
     create_file(M.config.options.logging_path, M.config.options.logging_file)
   end
 end
@@ -279,7 +278,6 @@ local function create_snippet(opts)
     url = generate_query_params(lines)
     code = lines
   end
-  print(code)
   log(url, code, vim.bo.filetype)
 
   ---@type string
