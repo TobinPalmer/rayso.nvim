@@ -2,6 +2,8 @@
   <p><strong>Create code snippets in Neovim using <a href="https://ray.so">ray.so</a></strong></p>
 </div>
 
+![](./static/gifs/out.gif)
+
 ## Requirements
 
 Neovim 0.8+
