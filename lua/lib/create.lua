@@ -1,16 +1,17 @@
 local M = {}
 local param_util = require('lib.params')
+local rayso = require('rayso')
 
 -- Gets the open command from the config
 M.get_open_command = function()
   -- On a mac
   if vim.fn.has('macunix') then
-    return 'open -a ' .. M.config.open_cmd .. '.app'
+    return 'open -a ' .. rayso.config.open_cmd .. '.app'
   end
 
   -- Not an mac and command is not an executable
-  if vim.fn.executable(M.config.open_cmd) == 0 then
-    return error('Could not find executable for ' .. M.config.open_cmd)
+  if vim.fn.executable(rayso.config.open_cmd) == 0 then
+    return error('Could not find executable for ' .. rayso.config.open_cmd)
   end
 
   return M.config.open_cmd

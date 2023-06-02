@@ -1,4 +1,5 @@
 local M = {}
+local rayso = require 'rayso'
 
 -- Generates encoded query params
 --- @param str string
@@ -38,7 +39,7 @@ end
 ---@param code string | nil
 ---@return string
 M.generate_query_params = function(code)
-  local opts = M.config.options
+  local opts = rayso.config.options
   local params = {
     theme = opts.theme,
     background = opts.background,
@@ -48,7 +49,7 @@ M.generate_query_params = function(code)
   }
 
   if code ~= nil then
-    params.code = require('rayso.base64').enc(code)
+    params.code = require('lib.base64').enc(code)
     params.language = vim.bo.filetype
   end
 

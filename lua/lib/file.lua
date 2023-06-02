@@ -1,4 +1,5 @@
 local M = {}
+local rayso = require 'rayso'
 ---@param file string
 ---@return boolean
 M.file_exists = function(file)
@@ -27,7 +28,7 @@ M.create_file = function(path, name)
   local file = path .. name .. '.md'
 
   if M.file_exists(file) then
-    return error('File already exists')
+    return error 'File already exists'
   end
 
   -- Create directory if it doesn't exist
@@ -51,17 +52,17 @@ end
 ---@param code string
 ---@param lang string
 M.log = function(url, code, lang)
-  if M.config.options.logging_enabled == false then
+  if rayso.config.options.logging_enabled == false then
     return
   end
 
-  local file = M.config.options.logging_path .. M.config.options.logging_file .. '.md'
+  local file = rayso.config.options.logging_path .. rayso.config.options.logging_file .. '.md'
   if M.file_exists(file) then
     local f = io.open(file, 'a')
     --- Check if the code is longer than 5 lines, then add ...
-    if code:match('\n') then
+    if code:match '\n' then
       local lines = {}
-      for line in code:gmatch('[^\r\n]+') do
+      for line in code:gmatch '[^\r\n]+' do
         table.insert(lines, line)
       end
       if #lines > 5 then

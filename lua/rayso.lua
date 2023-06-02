@@ -30,7 +30,7 @@ M.config = {
     logging_enabled = false,
     padding = 32,
     theme = 'crimson',
-    title = 'Untitled',
+    title = vim.fn.expand '%' or 'Untitled',
   },
 }
 
