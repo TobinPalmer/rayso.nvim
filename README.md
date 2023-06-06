@@ -41,6 +41,26 @@ require('rayso').setup {
 }
 ```
 
+## Example Config
+
+```lua
+return {
+  'TobinPalmer/rayso.nvim',
+  config = function()
+    require('rayso').setup {
+      open_cmd = 'chromium',
+      options = {
+        logging_path = '/Users/tobin/Documents/Rayso/', -- Notices the trailing slash
+        logging_file = 'rayso',
+        logging_enabled = true,
+        theme = 'midnight',
+      },
+    }
+    vim.keymap.set('v', '<leader>rs', require('lib.create').create_snippet)
+  end,
+}
+```
+
 ## Log File
 
 The most powerful feature of this plugin is its ability to log snippets in a file, creating a time capsule of snippets

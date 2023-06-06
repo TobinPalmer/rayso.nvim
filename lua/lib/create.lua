@@ -1,11 +1,11 @@
 local M = {}
-local param_util = require('lib.params')
-local rayso = require('rayso')
+local param_util = require 'lib.params'
+local rayso = require 'rayso'
 
 -- Gets the open command from the config
 M.get_open_command = function()
   -- On a mac
-  if vim.fn.has('macunix') then
+  if vim.fn.has 'macunix' then
     return 'open -a ' .. rayso.config.open_cmd .. '.app'
   end
 
@@ -20,6 +20,29 @@ end
 -- Creates the snippet
 ---@param opts table
 M.create_snippet = function(opts)
+  local function dump(o)
+    if type(o) == 'table' then
+      local s = '{ '
+      for k, v in pairs(o) do
+        if type(k) ~= 'number' then
+          k = '"' .. k .. '"'
+        end
+        s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+    else
+      return tostring(o)
+    end
+  end
+  -- If called via a binding
+  if opts == nil then
+    opts = {}
+    opts.line1 = vim.fn.line 'v'
+    opts.line2 = vim.fn.line '.'
+    if opts.args == nil then
+      opts.args = ''
+    end
+  end
   ---@type open_cmd | nil
   local open_cmd = M.get_open_command()
   ---@type string
