@@ -35,6 +35,14 @@ M.encode_params = function(values)
   return url
 end
 
+-- helper function to allow correction of language detection when file extension does not match language name
+M.assignLang = function(filetype)
+  if filetype == 'cs' then
+    return 'csharp'
+  end
+  return filetype
+end
+
 -- validate config param values and create the query params table
 ---@param code string | nil
 ---@return string
@@ -50,7 +58,7 @@ M.generate_query_params = function(code)
 
   if code ~= nil then
     params.code = require('lib.base64').enc(code)
-    params.language = vim.bo.filetype
+    params.language = M.assignLang(vim.bo.filetype)
   end
 
   return M.encode_params(params)
