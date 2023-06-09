@@ -74,7 +74,7 @@ M.create_snippet = function(opts)
     url = param_util.generate_query_params(lines)
     code = lines
   end
-  require('lib.file').log(url, code, vim.bo.filetype)
+  require('lib.file').log(url, code, param_util.assignLang(vim.bo.filetype))
 
   ---@type string
   local quation = nil
