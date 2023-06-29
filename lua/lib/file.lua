@@ -57,7 +57,9 @@ M.log = function(url, code, lang)
   end
 
   local file = rayso.config.options.logging_path .. rayso.config.options.logging_file .. '.md'
+  vim.notify('Creating log file: ' .. file, vim.log.levels.INFO)
   if M.file_exists(file) then
+    vim.notify('File Already Exists' .. file, vim.log.levels.INFO)
     local f = io.open(file, 'a')
     --- Check if the code is longer than 5 lines, then add ...
     if code:match '\n' then
@@ -87,6 +89,10 @@ M.log = function(url, code, lang)
     end
   else
     vim.notify("Config file doesn't exist, creating it", vim.log.levels.INFO)
+    M.create_file(rayso.config.options.logging_path, rayso.config.options.logging_file)
+    if M.config == nil then
+      return
+    end
     M.create_file(M.config.options.logging_path, M.config.options.logging_file)
   end
 end
