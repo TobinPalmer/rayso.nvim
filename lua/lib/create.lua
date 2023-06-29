@@ -5,11 +5,11 @@ local rayso = require 'rayso'
 -- Gets the open command from the config
 M.get_open_command = function()
   -- On a mac
-  if vim.fn.has 'macunix'==1 then
+  if vim.fn.has 'macunix' == 1 then
     return 'open -a ' .. rayso.config.open_cmd .. '.app'
   end
 
-  if vim.fn.has 'win32'==1 then
+  if vim.fn.has 'win32' == 1 then
     return 'start ' .. rayso.config.open_cmd
   end
   -- Not an mac and command is not an executable
@@ -74,16 +74,16 @@ M.create_snippet = function(opts)
     url = param_util.generate_query_params(lines)
     code = lines
   end
-  require('lib.file').log(url, code, param_util.assignLang(vim.bo.filetype))
+  require('lib.file').log(url, code, param_util.assign_lang(vim.bo.filetype))
 
   ---@type string
-  local quation = nil
-  if vim.fn.has 'macunix'==1 then
-    quation = "'"
-  elseif vim.fn.has 'win32'==1 then
-    quation = '"'
+  local equation = nil
+  if vim.fn.has 'macunix' == 1 then
+    equation = "'"
+  elseif vim.fn.has 'win32' == 1 then
+    equation = '"'
   end
-  local cmd = open_cmd .. ' ' .. quation .. url .. quation
+  local cmd = open_cmd .. ' ' .. equation .. url .. equation
   vim.fn.system(cmd)
 end
 
