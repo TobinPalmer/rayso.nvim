@@ -17,7 +17,7 @@ M.get_open_command = function()
     return error('Could not find executable for ' .. rayso.config.open_cmd)
   end
 
-  return M.config.open_cmd
+  return rayso.config.open_cmd
 end
 
 -- Creates the snippet
