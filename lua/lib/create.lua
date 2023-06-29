@@ -61,7 +61,7 @@ M.create_snippet = function(opts)
 
   if opts.args ~= '' then
     query_params = param_util.generate_query_params()
-    url = M.config.base_url .. '' .. opts.args .. '' .. query_params
+    url = rayso.config.base_url .. '' .. opts.args .. '' .. query_params
 
     -- Get the whole files text as a string
     --- get the current buffer
