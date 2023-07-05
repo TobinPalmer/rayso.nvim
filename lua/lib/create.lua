@@ -81,6 +81,8 @@ M.create_snippet = function(opts)
   local equation = nil
   if vim.fn.has 'macunix' == 1 then
     equation = "'"
+  elseif vim.fn.has 'unix' == 1 then
+    equation = "'"
   elseif vim.fn.has 'win32' == 1 then
     equation = '"'
   end
