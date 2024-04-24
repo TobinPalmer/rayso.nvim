@@ -26,15 +26,18 @@ end
 ---@param path string
 M.create_file = function(path, name)
   local file = path .. name .. '.md'
+  vim.notify('FILE' .. file, vim.log.levels.INFO)
 
   if M.file_exists(file) then
-    return error 'File already exists'
+    -- return error 'File already exists'
+    return vim.notify('File already exists', vim.log.levels.INFO)
   end
 
   -- Create directory if it doesn't exist
   local success, err = os.execute('mkdir -p "' .. path .. '"')
   if not success then
-    return error('Failed to create directory: ' .. err)
+    return vim.notify('Failed to create directory: ' .. err, vim.log.levels.ERROR)
+    -- return error('Failed to create directory: ' .. err)
   end
 
   local f, error = io.open(file, 'w')
@@ -42,7 +45,8 @@ M.create_file = function(path, name)
     f:close()
   else
     if error then
-      return error('Failed to create file:', error)
+      return vim.notify('Failed to create file: ' .. error, vim.log.levels.ERROR)
+      -- return error('Failed to create file:', error)
     end
     return "Something went very wrong, couldn't create the file"
   end
@@ -87,7 +91,7 @@ M.log = function(url, code, lang)
     end
   else
     vim.notify("Config file doesn't exist, creating it", vim.log.levels.INFO)
-    rayso.create_file(rayso.config.options.logging_path, rayso.config.options.logging_file)
+    M.create_file(rayso.config.options.logging_path, rayso.config.options.logging_file)
     if rayso.config == nil then
       return
     end
