@@ -9,15 +9,24 @@ M.get_open_command = function()
     -- return 'open -a ' .. rayso.config.open_cmd .. '.app'
     return 'open'
   end
-
   if vim.fn.has 'win32' == 1 then
     return 'start ' .. rayso.config.open_cmd
   end
-  -- Not an mac and command is not an executable
+  -- On Linux
+  if vim.fn.has 'unix' == 1 then
+    -- Try common Linux open commands in order of preference
+    if vim.fn.executable 'xdg-open' == 1 then
+      return 'xdg-open'
+    elseif vim.fn.executable(rayso.config.open_cmd) == 1 then
+      return rayso.config.open_cmd
+    else
+      return error('Could not find xdg-open or ' .. rayso.config.open_cmd)
+    end
+  end
+  -- Not a mac/windows/linux and command is not an executable
   if vim.fn.executable(rayso.config.open_cmd) == 0 then
     return error('Could not find executable for ' .. rayso.config.open_cmd)
   end
-
   return rayso.config.open_cmd
 end
 

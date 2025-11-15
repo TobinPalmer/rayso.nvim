@@ -27,7 +27,7 @@ These are the default options, you don't need to copy them into `setup()`
 ```lua
 require('rayso').setup {
   base_url = 'https://ray.so/', -- Default URL
-  open_cmd = 'firefox', -- On MacOS, will open with open -a firefox.app. Other OS's are untested.
+  open_cmd = 'firefox', -- On MacOS, will open with open -a firefox.app. In unix, will open with xdg-open firefox. Other OS's are untested.
   options = {
     background = true, -- If the screenshot should have a background.
     dark_mode = true, -- If the screenshot should be in dark mode.
